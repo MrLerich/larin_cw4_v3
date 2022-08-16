@@ -10,10 +10,12 @@ class Genre(models.Base):
 
     name = Column(String(255), unique=True, nullable=False)
 
+
 class Director(models.Base):
     __tablename__ = 'directors'
 
     name = Column(String(255), unique=True, nullable=False)
+
 
 class Movie(models.Base):
     __tablename__ = 'movies'
@@ -28,6 +30,7 @@ class Movie(models.Base):
 
     genre = relationship(Genre)
     director = relationship(Director)
+
 
 class User(models.Base):
     __tablename__ = 'users'
