@@ -1,3 +1,4 @@
+from flask import request
 from flask_restx import Namespace, Resource
 
 from project.container import movie_service
@@ -15,6 +16,12 @@ class MoviesView(Resource):
         """
         Get all movies.
         """
+
+        status = request.args.get("status")
+        if status and status == "new":
+            movie_service.get_all_order_by(filter=status, **page_parser.parse_args())
+
+
         return movie_service.get_all(**page_parser.parse_args())
 
 
