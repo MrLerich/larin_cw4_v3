@@ -19,10 +19,10 @@ class DirectorsDAO(BaseDAO[Director]):
 class MoviesDAO(BaseDAO[Movie]):
     __model__ = Movie
 
-    def get_all_order_by(self, filter: str, page: Optional[int] = None) -> List[T]:
+    def get_all_order_by(self, filter: Optional[str] =None, page: Optional[int] = None) -> List[T]:
         stmt: BaseQuery = self._db_session.query(self.__model__)
 
-        if filter == 'new':
+        if filter == 'new': #если есть стутус нью то делаем обратную сортировку по годам
             stmt = stmt.order_by(desc(self.__model__.year))
 
         else:
