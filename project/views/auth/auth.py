@@ -2,6 +2,7 @@ from flask import request
 from flask_restx import Namespace, Resource
 
 from project.container import user_service
+from project.tools.security import generate_token
 
 api = Namespace('auth')
 
@@ -34,7 +35,7 @@ class LoginView(Resource):
 
         if data.get("email") and data.get("password"):
             return user_service.check(email=data.get("email"),
-                                      password=data.get("password")), 200
+                                               password=data.get("password")), 200
         else:
             return "Пользователя не удалось создать", 401
 

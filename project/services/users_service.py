@@ -27,11 +27,10 @@ class UsersService:
 
     def check(self, email, password):
         user = self.get_user_by_email(email)
-        return generate_token (email=email, password=password, password_hash=user.password)
+        return generate_token(email=email, password=password, password_hash=user.password)
 
-    def update_token(self, access_token,refresh_token):
-        user = self.get_user_by_email(email)
-        return update_token (refresh_token=refresh_token)
+    def update_token(self, access_token, refresh_token):
+        return update_token(refresh_token=refresh_token)
 
 
 

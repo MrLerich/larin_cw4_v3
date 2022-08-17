@@ -60,9 +60,9 @@ def generate_token(email, password, password_hash, refresh=False):
     access_token = jwt.encode(data,
                               key=current_app.config["SECRET_KEY"],
                               algorithm=current_app.config["ALGORITHM"])
-    # day for refresh_token
-    min_day = datetime.datetime.utcnow() + datetime.timedelta(minutes=current_app.config["TOKEN_EXPIRE_DAY"])
-    data["exp"] = calendar.timegm(min_day.timetuple())
+    # 130 day for refresh_token
+    day130 = datetime.datetime.utcnow() + datetime.timedelta(days=current_app.config["TOKEN_EXPIRE_DAYS"])
+    data["exp"] = calendar.timegm(day130.timetuple())
     refresh_token = jwt.encode(data,
                                key=current_app.config["SECRET_KEY"],
                                algorithm=current_app.config["ALGORITHM"])
