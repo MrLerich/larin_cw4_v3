@@ -16,3 +16,23 @@ class UsersService:
 
     def get_all(self, page: Optional[int] = None) -> List[User]:
         return self.dao.get_all(page=page)
+
+    def create_user(self, email, password):
+        return self.dao.create_user(email=email, password=password)
+
+    def get_user_by_email(self, email):
+        return self.dao.get_user_by_email(email=email)
+
+    def check(self, email, password):
+        user = self.get_user_by_email(email)
+        return generate_token (email=email, password=password, password_hash=user.password)
+
+    def update_token(self, access_token,refresh_token):
+        user = self.get_user_by_email(email)
+        return generate_token (email=email, password=password, password_hash=user.password)
+
+
+
+
+
+

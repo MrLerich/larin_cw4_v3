@@ -23,3 +23,20 @@ class RegisterUserView(Resource):
         else:
             return "Пользователя не удалось создать", 401
 
+@api.route('/login'/)
+class LoginnView(Resource):
+    def post(self):
+        """
+        логин пользователя. проходит аутентификацию пользователя возвращает access_token refresh_token
+        :return:
+        """
+        data = request.json
+
+        if data.get("email") and data.get("password"):
+            return user_service.create_user(email=data.get("email"),
+                                            password=data.get("password")), \
+                   201, \
+                   {"location": f"/users/{user.id}"}
+        else:
+            return "Пользователя не удалось создать", 401
+
