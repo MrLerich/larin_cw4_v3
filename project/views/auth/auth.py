@@ -40,3 +40,15 @@ class LoginnView(Resource):
         else:
             return "Пользователя не удалось создать", 401
 
+    def put(self):
+        """
+        обновляет токены
+        :return:
+        """
+        data = request.json
+
+        if data.get("access_token") and data.get("refresh_token"):
+            return user_service.update_token(access_token=data.get("access_token"),
+                                            refresh_token=data.get("refresh_token")), 200
+        else:
+            return "Токены не удалось обновить", 401

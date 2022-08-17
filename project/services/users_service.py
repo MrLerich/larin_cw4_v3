@@ -4,6 +4,7 @@ from project.dao import UsersDAO
 from project.dao.base import BaseDAO
 from project.exceptions import ItemNotFound
 from project.models import User
+from project.tools.security import update_token, generate_token
 
 
 class UsersService:
