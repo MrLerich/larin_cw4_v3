@@ -1,12 +1,13 @@
 from typing import Optional, List
 
+from project.dao import UsersDAO
 from project.dao.base import BaseDAO
 from project.exceptions import ItemNotFound
 from project.models import User
 
 
 class UsersService:
-    def __init__(self, dao: BaseDAO) -> None:
+    def __init__(self, dao: UsersDAO) -> None:
         self.dao = dao
 
     def get_item(self, pk: int) -> User:
@@ -29,7 +30,7 @@ class UsersService:
 
     def update_token(self, access_token,refresh_token):
         user = self.get_user_by_email(email)
-        return generate_token (email=email, password=password, password_hash=user.password)
+        return update_token (refresh_token=refresh_token)
 
 
 
