@@ -1,4 +1,4 @@
-from typing import Optional, List,
+from typing import Optional, List
 
 from flask_sqlalchemy import BaseQuery
 from sqlalchemy import desc
@@ -22,7 +22,7 @@ class MoviesDAO(BaseDAO[Movie]):
     def get_all_order_by(self, filter: Optional[str] =None, page: Optional[int] = None) -> List[T]:
         stmt: BaseQuery = self._db_session.query(self.__model__)
 
-        if filter == 'new': #если есть стутус нью то делаем обратную сортировку по годам
+        if filter == 'new': #если есть статус нью то делаем обратную сортировку по годам
             stmt = stmt.order_by(desc(self.__model__.year))
 
         else:
