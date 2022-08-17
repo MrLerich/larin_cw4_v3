@@ -54,7 +54,7 @@ class UsersDAO(BaseDAO[User]):
         :return:
         """
         user = User(email=email,
-                    password=generate_password_hash(password))
+                    password=password)
 
         try:
             self._db_session.add(user)
@@ -72,5 +72,21 @@ class UsersDAO(BaseDAO[User]):
         :return:
         """
         return self._db_session.query(self.__model__).filter(self.__model__.email == email).one()
+
+    def update_user(self, data, email):
+        """
+        обновляет данные пользователя
+        :param email:
+        :return:
+        """
+        try:
+            self._db_session.query(self.__model__).filter(self.__model__.email == email).update(data)
+            self._db_session.commit()
+            print ("Пользователь успешно обновлен")
+        except Exception as e:
+            print("Ошибка обновления пользователя")
+            print(e)
+            self._db_session.rollback()
+
 
 
