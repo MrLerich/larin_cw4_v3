@@ -4,7 +4,7 @@ from project.dao import UsersDAO
 from project.dao.base import BaseDAO
 from project.exceptions import ItemNotFound
 from project.models import User
-from project.tools.security import update_token, generate_token
+from project.tools.security import update_token, generate_token, get_data_by_token
 
 
 class UsersService:
@@ -31,6 +31,13 @@ class UsersService:
 
     def update_token(self, access_token, refresh_token):
         return update_token(refresh_token=refresh_token)
+
+    def get_user_by_token(self, token):
+        data = get_data_by_token(token)
+        if data:
+            return self.get_user_by_email(data.get("email"))
+
+
 
 
 
