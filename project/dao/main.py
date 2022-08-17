@@ -6,6 +6,7 @@ from werkzeug.exceptions import NotFound
 
 from project.dao.base import BaseDAO, T
 from project.models import Genre, Movie, Director, User
+from project.tools.security import generate_password_hash
 
 
 class GenresDAO(BaseDAO[Genre]):
@@ -20,6 +21,12 @@ class MoviesDAO(BaseDAO[Movie]):
     __model__ = Movie
 
     def get_all_order_by(self, filter: Optional[str] =None, page: Optional[int] = None) -> List[T]:
+        """
+        достает все фильмы с фильтрацией по годам в зависимости от статуса
+        :param filter:
+        :param page:
+        :return:
+        """
         stmt: BaseQuery = self._db_session.query(self.__model__)
 
         if filter == 'new': #если есть статус нью то делаем обратную сортировку по годам
@@ -39,19 +46,21 @@ class MoviesDAO(BaseDAO[Movie]):
 class UsersDAO(BaseDAO[User]):
     __model__ = User
 
-    def create_user(self,email,password):
+    def create_user(self, email, password):
         """
         создает пользователя
         :param email:
         :param password:
         :return:
         """
-        user = User(email=email,password=password)
+        user = User(email=email,
+                    password=generate_password_hash(password))
 
         try:
             self._db_session.add(user)
             self._db_session.commit()
             print("Пользователь успешно создан")
+            return user
         except Exception as e:
             self._db_session.rollback()
             print(e)

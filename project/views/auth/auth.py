@@ -1,10 +1,10 @@
 from flask import request
 from flask_restx import Namespace, Resource
+
 from project.container import user_service
-from project.setup.api.models import user
-from project.setup.api.parsers import page_parser
 
 api = Namespace('auth')
+
 
 @api.route('/register/')
 class RegisterUserView(Resource):
@@ -16,15 +16,15 @@ class RegisterUserView(Resource):
         data = request.json
 
         if data.get("email") and data.get("password"):
-            return user_service.create_user(email=data.get("email"),
-                                            password=data.get("password")), \
-                   201,\
-                   {"location":f"/users/{user.id}"}
+            user_service.create_user(email=data.get("email"),
+                                     password=data.get("password"))
+            return f"Создан пользователь со следующими данными: {data['email']}"
         else:
             return "Пользователя не удалось создать", 401
 
-@api.route('/login'/)
-class LoginnView(Resource):
+
+@api.route('/login/')
+class LoginView(Resource):
     def post(self):
         """
         логин пользователя. проходит аутентификацию пользователя возвращает access_token refresh_token
@@ -33,10 +33,8 @@ class LoginnView(Resource):
         data = request.json
 
         if data.get("email") and data.get("password"):
-            return user_service.create_user(email=data.get("email"),
-                                            password=data.get("password")), \
-                   201, \
-                   {"location": f"/users/{user.id}"}
+            return user_service.check(email=data.get("email"),
+                                      password=data.get("password")), 200
         else:
             return "Пользователя не удалось создать", 401
 
@@ -49,6 +47,6 @@ class LoginnView(Resource):
 
         if data.get("access_token") and data.get("refresh_token"):
             return user_service.update_token(access_token=data.get("access_token"),
-                                            refresh_token=data.get("refresh_token")), 200
+                                             refresh_token=data.get("refresh_token")), 200
         else:
             return "Токены не удалось обновить", 401
