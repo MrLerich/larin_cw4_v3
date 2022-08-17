@@ -40,12 +40,13 @@ def compare_passwords(password_hash: Union[str, bytes], other_password: str) -> 
     """
     return password_hash == generate_password_hash(other_password)
 
+
 def generate_token(email, password, password_hash, refresh=False):
     if not email:
         return None
 
     if not refresh:
-        if not compare_passwords(password_hash=password_hash,other_password=password):
+        if not compare_passwords(password_hash=password_hash, other_password=password):
             return None
 
     data = {
@@ -70,5 +71,37 @@ def generate_token(email, password, password_hash, refresh=False):
         "access_token": access_token,
         "refresh_token": refresh_token
     }
+
+
+def update_token(refresh_token):
+    """
+    обновляет токены
+    :param refresh_token:
+    :return:
+    """
+    data = jwt.decode(refresh_token,
+                      key=current_app.config["SECRET_KEY"],
+                      algorithms=current_app.config["ALGORITHM"])
+
+    email = data.get("email")
+    password = data.get("password")
+
+    return generate_token(email=email,
+                          password=password,
+                          password_hash=None,
+                          refresh=True)
+
+
+def get_data_by_token(refresh_token):
+    """
+    получает данные по токену
+    :param refresh_token:
+    :return:
+    """
+    data = jwt.decode(refresh_token,
+                      key=current_app.config["SECRET_KEY"],
+                      algorithms=current_app.config["ALGORITHM"])
+
+    return data
 
 
