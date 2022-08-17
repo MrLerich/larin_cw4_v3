@@ -1,4 +1,5 @@
 from flask_restx import fields, Model
+from jsonschema._validators import required
 
 from project.models import Movie
 from project.setup.api import api
@@ -25,6 +26,12 @@ movie: Model = api.model('Фильм', {
     'director': fields.Nested(director)
 })
 
-user: Model = api.model('Пользователь',{
-    'id'
+user: Model = api.model('Пользователь', {
+    'id': fields.Integer(required=True, example=1),
+    'email': fields.String(required=True),
+    'password': fields.String(required=True),
+    'name': fields.String(),
+    'surname': fields.String(),
+    'favorite_genre': fields.Integer(),
+    'genre': fields.Nested(genre)
 })
