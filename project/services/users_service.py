@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from project.dao.base import BaseDAO
 from project.exceptions import ItemNotFound
@@ -14,5 +14,5 @@ class UsersService:
             return user
         raise ItemNotFound(f'User with pk={pk} not exists.')
 
-    def get_all(self, page: Optional[int] = None) -> list[User]:
+    def get_all(self, page: Optional[int] = None) -> List[User]:
         return self.dao.get_all(page=page)

@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from project.dao.main import MoviesDAO
 from project.exceptions import ItemNotFound
@@ -14,5 +14,5 @@ class MoviesService:
             return movie
         raise ItemNotFound(f'Movie with pk={pk} not exists.')
 
-    def get_all(self, page: Optional[int] = None, filter: Optional[str] = None) -> list[Movie]:
+    def get_all(self, page: Optional[int] = None, filter: Optional[str] = None) -> List[Movie]:
         return self.dao.get_all_order_by(page=page, filter=filter)

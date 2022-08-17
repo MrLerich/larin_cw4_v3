@@ -22,8 +22,9 @@ class BaseConfig:
 
     RESTX_JSON = {
         'ensure_ascii': False,
+        'indent': 4
     }
-
+    ALGORITHM = "HS256"
 
 class TestingConfig(BaseConfig):
     TESTING = True
@@ -42,6 +43,7 @@ class ProductionConfig(BaseConfig):
 
 
 class ConfigFactory:
+    os.environ['FLASK_ENV'] = 'development'
     flask_env = os.getenv('FLASK_ENV')
 
     @classmethod

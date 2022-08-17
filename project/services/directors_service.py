@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from project.dao.base import BaseDAO
 from project.exceptions import ItemNotFound
@@ -14,5 +14,5 @@ class DirectorsService:
             return director
         raise ItemNotFound(f'Director with pk={pk} not exists.')
 
-    def get_all(self, page: Optional[int] = None) -> list[Director]:
+    def get_all(self, page: Optional[int] = None) -> List[Director]:
         return self.dao.get_all(page=page)
