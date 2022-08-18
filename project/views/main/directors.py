@@ -1,10 +1,10 @@
-from flask_restx import Namespace, Resource
+from flask_restx import Namespace, Resource, Api
 
 from project.container import director_service
 from project.setup.api.models import director
 from project.setup.api.parsers import page_parser
 
-api = Namespace('directors')
+api: Namespace = Namespace('directors', description="Режиссёры")
 
 
 @api.route('/')

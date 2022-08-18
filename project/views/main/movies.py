@@ -5,7 +5,7 @@ from project.container import movie_service
 from project.setup.api.models import movie
 from project.setup.api.parsers import page_parser
 
-api = Namespace('movies')
+api: Namespace = Namespace('movies', description='Фильмы')
 
 
 @api.route('/')
