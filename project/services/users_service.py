@@ -2,7 +2,7 @@ from typing import Optional, List
 
 from project.dao import UsersDAO
 from project.exceptions import ItemNotFound
-from project.models import User
+from project.dao.models import User
 from project.tools.security import update_token, generate_token, get_data_by_token, generate_password_hash
 
 

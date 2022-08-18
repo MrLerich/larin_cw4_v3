@@ -1,7 +1,5 @@
 from flask_restx import fields, Model
-from jsonschema._validators import required
 
-from project.models import Movie
 from project.setup.api import api
 
 genre: Model = api.model('Жанр', {

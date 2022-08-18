@@ -2,7 +2,7 @@ from typing import Optional, List
 
 from project.dao.base import BaseDAO
 from project.exceptions import ItemNotFound
-from project.models import Director
+from project.dao.models import Director
 
 
 class DirectorsService:
